@@ -1,0 +1,29 @@
+<div class="login-wrapper">
+    <div class="card p-4">
+        <h1 class="text-center">Login</h1>
+        <form [formGroup]="loginForm">
+            <div class="mb-3">
+                <label class="form-label">Username</label>
+                <input [class.is-invalid]="loginForm.get('userName')?.errors && loginForm.get('userName')?.touched"
+                    type="text" class="form-control" formControlName="userName">
+                <div *ngIf="loginForm.get('userName')?.errors && loginForm.get('userName')?.touched"
+                    class="invalid-feedback">
+                    Username is required
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input [class.is-invalid]="loginForm.get('password')?.errors && loginForm.get('password')?.touched"
+                    type="password" class="form-control" formControlName="password">
+                <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched"
+                    class="invalid-feedback">
+                    Password is required
+                </div>
+            </div>
+            <div class="text-center mt-2">
+                <button type="submit" (click)="userLogin()" class="btn btn-success">Login</button>
+                <button type="button" class="btn btn-primary ms-2" (click)="register()">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
