@@ -1,1 +1,34 @@
-<p>category-list works!</p>
+<div class="container">
+    <div class="title-wrap mt-5">
+        <div class="text-center">
+            <h2>Category List</h2>
+        </div>
+        <div class="text-end">
+            <button type=" button" class="btn btn-primary" (click)="addCategory()">Add Category</button>
+        </div>
+    </div>
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Category Name</th>
+                    <th scope="col">Category Type</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let category of categoryList">
+                    <td>{{category.id}}</td>
+                    <td>{{category.categoryName}}</td>
+                    <td>{{category.categoryType}}</td>
+                    <td>
+                        <button (click)="editCategory(category.id)" type="button" class="btn btn-info">Edit</button>
+                        <button (click)="deleteCategory(category.id)" type="button"
+                            class="btn btn-danger ms-3">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -21,7 +21,7 @@ namespace API.Controllers
         [HttpPost("register")]
         [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UserDTO>> Register([FromForm] RegisterDTO registerDTO)
+        public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
             if (await UserNameExists(registerDTO.UserName)) return BadRequest("UserName is taken");
 
@@ -48,7 +48,7 @@ namespace API.Controllers
         [HttpPost("login")]
         [ProducesResponseType(typeof(UserDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<UserDTO>> Login([FromForm] LoginDTO loginDTO)
+        public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
             var user = await context.Users.Where(u => u.UserName == loginDTO.UserName).FirstOrDefaultAsync();
 

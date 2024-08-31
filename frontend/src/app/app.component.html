@@ -1,1 +1,10 @@
+<ngx-spinner type="line-scale-party">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
+
+<ng-container *ngIf="currentUser()">
+    <app-nav></app-nav>
+</ng-container>
+
+
 <router-outlet></router-outlet>

@@ -1,1 +1,37 @@
-<p>category-add works!</p>
+<div class="add-form mt-5">
+    <div class="container">
+        <div class="card p-4">
+            <div class="title-wrap">
+                <div class="text-center">
+                    <h2>Category Add</h2>
+                </div>
+            </div>
+            <form [formGroup]="categoryForm">
+                <div class="mb-3">
+                    <label class="form-label">Category Type</label>
+                    <input
+                        [class.is-invalid]="categoryForm.get('categoryType')?.errors && categoryForm.get('categoryType')?.touched"
+                        type="text" class="form-control" formControlName="categoryType">
+                    <div *ngIf="categoryForm.get('categoryType')?.errors && categoryForm.get('categoryType')?.touched"
+                        class="invalid-feedback">
+                        Category Type is required
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Category Name</label>
+                    <input
+                        [class.is-invalid]="categoryForm.get('categoryName')?.errors && categoryForm.get('categoryName')?.touched"
+                        type="categoryName" class="form-control" formControlName="categoryName">
+                    <div *ngIf="categoryForm.get('categoryName')?.errors && categoryForm.get('categoryName')?.touched"
+                        class="invalid-feedback">
+                        Category Name is required
+                    </div>
+                </div>
+                <div class="text-center mt-2">
+                    <button type="submit" (click)="addCategory()" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-primary ms-2" (click)="backToList()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

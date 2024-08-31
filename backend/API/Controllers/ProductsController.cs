@@ -51,7 +51,7 @@ namespace API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ProductsDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Products>> CreateProduct([FromForm] AddProductDTO addProductDTO)
+        public async Task<ActionResult<Products>> CreateProduct(AddProductDTO addProductDTO)
         {
             if (await ProductExists(addProductDTO.ProductName)) return BadRequest("Product name already taken");
 
@@ -69,7 +69,7 @@ namespace API.Controllers
         [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(ProductsDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Products>> UpdateProduct([FromRoute] int id, [FromForm] UpdateProductDTO updateProductDTO)
+        public async Task<ActionResult<Products>> UpdateProduct([FromRoute] int id, UpdateProductDTO updateProductDTO)
         {
             var product = await productRepository.GetByIdAsync(id);
 

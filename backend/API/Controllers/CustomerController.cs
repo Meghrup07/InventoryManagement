@@ -53,7 +53,7 @@ namespace API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(CustomerDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Customer>> CreateCustomer([FromForm] AddCustomerDTO addCustomerDTO)
+        public async Task<ActionResult<Customer>> CreateCustomer(AddCustomerDTO addCustomerDTO)
         {
 
             if (await CustEmailExits(addCustomerDTO.Email)) return BadRequest("Email already taken!");
@@ -71,7 +71,7 @@ namespace API.Controllers
         [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(CustomerDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Customer>> UpdateCustomer([FromRoute] int id, [FromForm] UpdateCustomerDTO updateCustomerDTO)
+        public async Task<ActionResult<Customer>> UpdateCustomer([FromRoute] int id, UpdateCustomerDTO updateCustomerDTO)
         {
             var customer = await customerRepository.GetByIdAsync(id);
 

@@ -39,7 +39,7 @@ namespace API.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(CategoryDTO), StatusCodes.Status200OK)]
-        public async Task<ActionResult<Category>> CreateCategory([FromForm] AddCategoryDTO addCategoryDTO)
+        public async Task<ActionResult<Category>> CreateCategory(AddCategoryDTO addCategoryDTO)
         {
             var category = new Category
             {
@@ -56,7 +56,7 @@ namespace API.Controllers
         [HttpPut("{id:int}")]
         [ProducesResponseType(typeof(CategoryDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<CategoryDTO>> CategoryUpdate([FromRoute] int id, [FromForm] UpdateCategoryDTO updateCategoryDTO)
+        public async Task<ActionResult<CategoryDTO>> CategoryUpdate([FromRoute] int id, UpdateCategoryDTO updateCategoryDTO)
         {
             var category = await genericRepository.GetByIdAsync(id);
 
