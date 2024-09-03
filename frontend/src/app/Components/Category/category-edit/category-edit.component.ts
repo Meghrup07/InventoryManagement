@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { CategoryService } from '../../../Shared/Services/category.service';
 import { CategoryResponse } from '../../../Shared/Models/category';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category-edit',
@@ -17,6 +18,7 @@ export class CategoryEditComponent implements OnInit {
   public route = inject(Router)
   private activatedRoute = inject(ActivatedRoute);
   private categoryService = inject(CategoryService);
+  private toastr = inject(ToastrService);
   categoryEditForm!: FormGroup
   categoryDetails: any = [];
   categoryId: any
@@ -30,7 +32,6 @@ export class CategoryEditComponent implements OnInit {
   getCategoryDetails() {
     this.categoryService.categoryDetails(this.categoryId).subscribe((res) => {
       this.categoryDetails = res;
-      console.log(this.categoryDetails);
       this.getEditCategoeryForm();
     })
   }
@@ -48,8 +49,13 @@ export class CategoryEditComponent implements OnInit {
       categoryName: this.categoryEditForm.controls['categoryName'].value
     }
     this.categoryService.updateCategory(formValue, this.categoryId).subscribe({
-      next: _ => this.route.navigateByUrl("/category"),
-      error: _ => alert("Someting went wrong")
+      next: () => {
+        this.toastr.success("category updated");
+        this.route.navigateByUrl("/category");
+      },
+      error: () => {
+        this.toastr.error("Something went wrong");
+      }
     })
   }
 

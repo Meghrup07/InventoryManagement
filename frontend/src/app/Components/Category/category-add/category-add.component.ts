@@ -3,6 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CategoryService } from '../../../Shared/Services/category.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-category-add',
@@ -12,8 +13,9 @@ import { Router } from '@angular/router';
   styleUrl: './category-add.component.css'
 })
 export class CategoryAddComponent implements OnInit {
-  public route = inject(Router)
-  public categoryService = inject(CategoryService);
+  private route = inject(Router)
+  private categoryService = inject(CategoryService);
+  private toastr = inject(ToastrService);
   categoryForm!: FormGroup;
 
   ngOnInit(): void {
@@ -28,9 +30,14 @@ export class CategoryAddComponent implements OnInit {
   }
 
   addCategory() {
-    this.categoryService.addCategory(this.categoryForm.value).subscribe(() => {
-      this.route.navigateByUrl("/category");
-      this.categoryForm.reset();
+    this.categoryService.addCategory(this.categoryForm.value).subscribe({
+      next: () => {
+        this.toastr.success("category added");
+        this.route.navigateByUrl("/category");
+      },
+      error: () => {
+        this.toastr.error("Something went wrong");
+      }
     })
   }
 

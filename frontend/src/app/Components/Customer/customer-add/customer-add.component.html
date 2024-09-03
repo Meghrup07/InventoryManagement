@@ -1,0 +1,47 @@
+<div class="add-form mt-5">
+    <div class="container">
+        <div class="card p-4">
+            <div class="title-wrap">
+                <div class="text-center">
+                    <h2>Customer Add</h2>
+                </div>
+            </div>
+            <form [formGroup]="customerForm">
+                <div class="mb-3">
+                    <label class="form-label">Customer Name</label>
+                    <input [class.is-invalid]="customerForm.get('name')?.errors && customerForm.get('name')?.touched"
+                        type="text" class="form-control" formControlName="name">
+                    <div *ngIf="customerForm.get('name')?.errors && customerForm.get('name')?.touched"
+                        class="invalid-feedback">
+                        Name is required
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Customer Email</label>
+                    <input [class.is-invalid]="customerForm.get('email')?.errors && customerForm.get('email')?.touched"
+                        type="email" class="form-control" formControlName="email">
+                    <div *ngIf="customerForm.get('email')?.errors && customerForm.get('email')?.touched"
+                        class="invalid-feedback">
+                        Email is required
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Customer Phone</label>
+                    <input class="form-control" formControlName="phone">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Customer Address</label>
+                    <input class="form-control" formControlName="address">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Customer City</label>
+                    <input class="form-control" formControlName="city">
+                </div>
+                <div class="text-center mt-2">
+                    <button type="submit" (click)="addCustomer()" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-primary ms-2" (click)="backToList()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

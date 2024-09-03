@@ -3,6 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../Shared/Services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { AuthService } from '../../../Shared/Services/auth.service';
 })
 export class LoginComponent implements OnInit {
   private route = inject(Router);
+  private toastr = inject(ToastrService);
   private authService = inject(AuthService);
   loginForm!: FormGroup;
 
@@ -30,10 +32,11 @@ export class LoginComponent implements OnInit {
   userLogin() {
     this.authService.login(this.loginForm.value).subscribe({
       next: () => {
+        this.toastr.success("login successfull");
         this.route.navigateByUrl("category");
       },
       error: () => {
-        alert("Something went wrong");
+        this.toastr.error("Something went wrong");
       }
     })
   }

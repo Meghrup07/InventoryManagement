@@ -17,6 +17,11 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: "customer",
+        loadChildren: () => import('./Components/Customer/customer.module').then(m => m.CustomerModule),
+        canActivate: [authGuard]
+    },
+    {
         path: '**',
         loadChildren: () => import('./Components/Auth/auth.module').then(m => m.AuthModule),
         pathMatch: "full"

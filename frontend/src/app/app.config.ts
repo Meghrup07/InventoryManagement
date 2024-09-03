@@ -7,6 +7,7 @@ import { jwtInterceptor } from './Shared/Interceptor/jwt.interceptor';
 import { loadingInterceptor } from './Shared/Interceptor/loading.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TimeagoModule } from 'ngx-timeago';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +15,9 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideHttpClient(withInterceptors([jwtInterceptor, loadingInterceptor])),
+    provideToastr({
+      positionClass: 'toast-bottom-right'
+    }),
     importProvidersFrom(NgxSpinnerModule, TimeagoModule.forRoot())
   ]
 };
