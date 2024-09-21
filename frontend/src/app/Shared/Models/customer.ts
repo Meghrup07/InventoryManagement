@@ -9,6 +9,7 @@ export interface Item {
     email: string
     phone: string
     address: string
+    state: string
     city: string
 }
 
@@ -17,5 +18,6 @@ export interface CustomerRequest {
     email: string
     phone: string
     address: string
+    state: string
     city: string
 }

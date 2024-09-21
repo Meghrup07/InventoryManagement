@@ -34,8 +34,25 @@
                     <input class="form-control" formControlName="address">
                 </div>
                 <div class="mb-3">
+                    <label class="form-label">Customer State</label>
+                    <select class="form-select" formControlName="state">
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                    </select>
+                    <div *ngIf="customerForm.get('state')?.errors && customerForm.get('state')?.touched"
+                        class="invalid-feedback">
+                        State is required
+                    </div>
+                </div>
+                <div class="mb-3">
                     <label class="form-label">Customer City</label>
-                    <input class="form-control" formControlName="city">
+                    <select class="form-select" formControlName="city">
+                        <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                    </select>
+                    <div *ngIf="customerForm.get('city')?.errors && customerForm.get('city')?.touched"
+                        class="invalid-feedback">
+                        City is required
+                    </div>
                 </div>
                 <div class="text-center mt-2">
                     <button type="submit" (click)="addCustomer()" class="btn btn-success">Save</button>

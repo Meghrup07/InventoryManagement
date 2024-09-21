@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { CustomerService } from '../../../Shared/Services/customer.service';
 import { ToastrService } from 'ngx-toastr';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-customer-add',
@@ -18,8 +19,15 @@ export class CustomerAddComponent implements OnInit {
   private toastr = inject(ToastrService);
   customerForm!: FormGroup;
 
+  cityOptions: { [key: string]: string[] } = {
+    Gujarat: ['Ahmedabad', 'Surat', 'Vadodara'],
+    Maharashtra: ['Mumbai', 'Pune', 'Nashik'],
+  };
+  cities: string[] = [];
+
   ngOnInit(): void {
     this.getCustomerForm();
+    this.onStateChange();
   }
 
   getCustomerForm() {
@@ -28,8 +36,16 @@ export class CustomerAddComponent implements OnInit {
       email: new FormControl(null, [Validators.required]),
       phone: new FormControl(null),
       address: new FormControl(null),
-      city: new FormControl(null),
+      state: new FormControl(null, [Validators.required]),
+      city: new FormControl(null, [Validators.required]),
     })
+  }
+
+  onStateChange() {
+    this.customerForm.get('state')?.valueChanges.subscribe(selectedState => {
+      this.cities = this.cityOptions[selectedState] || [];
+      this.customerForm.get('city')?.setValue(null);
+    });
   }
 
   addCustomer() {

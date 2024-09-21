@@ -27,6 +27,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
                     <th scope="col">Address</th>
+                    <th scope="col">State</th>
                     <th scope="col">City</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -38,11 +39,12 @@
                     <td>{{ customer.email }}</td>
                     <td>{{ customer.phone }}</td>
                     <td>{{ customer.address }}</td>
+                    <td>{{ customer.state }}</td>
                     <td>{{ customer.city }}</td>
                     <td>
                         <button (click)="editCustomer(customer.id)" type="button" class="btn btn-info">Edit</button>
                         <button (click)="deleteCustomer(customer.id)" type="button"
-                            class="btn btn-danger ms-3">Delete</button>
+                            class="btn btn-danger ms-2">Delete</button>
                     </td>
                 </tr>
             </tbody>

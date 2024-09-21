@@ -16,6 +16,9 @@ namespace API.Models
         public required string Email { get; set; }
         public string? Phone { get; set; }
         public string? Address { get; set; }
-        public string? City { get; set; }
+        [Required]
+        public required string State { get; set; }
+        [Required]
+        public required string City { get; set; }
     }
 }

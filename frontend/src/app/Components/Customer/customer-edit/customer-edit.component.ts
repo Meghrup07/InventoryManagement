@@ -22,6 +22,12 @@ export class CustomerEditComponent implements OnInit {
   customerDetails: any;
   updateForm!: FormGroup;
 
+  cityOptions: { [key: string]: string[] } = {
+    Gujarat: ['Ahmedabad', 'Surat', 'Vadodara'],
+    Maharashtra: ['Mumbai', 'Pune', 'Nashik'],
+  };
+  cities: string[] = [];
+
   ngOnInit(): void {
     this.updateCustomerForm();
     this.customerId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -32,6 +38,8 @@ export class CustomerEditComponent implements OnInit {
     this.customerServices.getCustomer(this.customerId).subscribe((res) => {
       this.customerDetails = res;
       this.updateCustomerForm();
+      this.onStateChange();
+      this.updateCityOptions();
     })
   }
 
@@ -41,8 +49,21 @@ export class CustomerEditComponent implements OnInit {
       email: new FormControl(this.customerDetails ? this.customerDetails['email'] : null, [Validators.required]),
       phone: new FormControl(this.customerDetails ? this.customerDetails['phone'] : null),
       address: new FormControl(this.customerDetails ? this.customerDetails['address'] : null),
-      city: new FormControl(this.customerDetails ? this.customerDetails['city'] : null),
+      state: new FormControl(this.customerDetails ? this.customerDetails['state'] : null, [Validators.required]),
+      city: new FormControl(this.customerDetails ? this.customerDetails['city'] : null, [Validators.required]),
     })
+  }
+
+  onStateChange() {
+    this.updateForm.get('state')?.valueChanges.subscribe(selectedState => {
+      this.cities = this.cityOptions[selectedState] || [];
+      this.updateForm.get('city')?.setValue(null);
+    });
+  }
+
+  updateCityOptions() {
+    const currentState = this.updateForm.get('state')?.value;
+    this.cities = this.cityOptions[currentState] || [];
   }
 
   updateCustomer() {
@@ -51,12 +72,9 @@ export class CustomerEditComponent implements OnInit {
       email: this.updateForm.controls['email'].value,
       phone: this.updateForm.controls['phone'].value,
       address: this.updateForm.controls['address'].value,
+      state: this.updateForm.controls['state'].value,
       city: this.updateForm.controls['city'].value,
     }
-    // const formValue = {
-    //   categoryType: this.categoryEditForm.controls['categoryType'].value,
-    //   categoryName: this.categoryEditForm.controls['categoryName'].value
-    // }
     this.customerServices.updateCustomer(formValue, this.customerId).subscribe({
       next: _ => {
         this.toastr.success("customer updated");

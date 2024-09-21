@@ -41,7 +41,12 @@
                     type="password" class="form-control" formControlName="password">
                 <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched"
                     class="invalid-feedback">
-                    Password is required
+                    <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</div>
+                    <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8
+                        characters</div>
+                    <div *ngIf="registerForm.get('password')?.errors?.['pattern']">
+                        Password must contain at least one uppercase letter and one special character
+                    </div>
                 </div>
             </div>
             <div class="text-center mt-2">

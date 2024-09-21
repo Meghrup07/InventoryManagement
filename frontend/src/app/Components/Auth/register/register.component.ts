@@ -26,7 +26,10 @@ export class RegisterComponent implements OnInit {
       name: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required]),
       phone: new FormControl(null),
-      password: new FormControl(null, [Validators.required])
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^(?=.*[A-Z])(?=.*[!@#$&*]).+$/)])
     })
   }
 
